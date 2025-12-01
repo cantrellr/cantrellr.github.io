@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Charles Cantrell Jr — Aviation & Cloud Security</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Where the Bonanza BE35 V-tail meets cybersecurity and cloud engineering. Aviation-inspired innovation, systems thinking, and secure architectures."
+  />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --panel: #020617;
+      --border: #1f2937;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97316;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 22px 50px rgba(15, 23, 42, 0.9);
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background:
+        radial-gradient(circle at top, #0b1120 0, #020617 50%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px 40px;
+    }
+
+    header {
+      max-width: var(--max-width);
+      margin: 0 auto 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background:
+        radial-gradient(circle at 20% 0%, #38bdf8, #0f172a 55%, #020617 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #e0f2fe;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .brand-text-main {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 6px 16px;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(
+        to right,
+        rgba(15, 23, 42, 0.98),
+        rgba(15, 23, 42, 0.75)
+      );
+      color: var(--muted);
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, #22c55e, #16a34a);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .grid {
+      max-width: var(--max-width);
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero {
+      position: relative;
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 26px 24px 22px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      opacity: 0.5;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.2), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(129, 140, 248, 0.2), transparent 60%),
+        radial-gradient(circle at 10% 100%, rgba(45, 212, 191, 0.22), transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.96);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .eyebrow span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(28px, 3.2vw, 36px);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    h1 span {
+      background: linear-gradient(to right, #f9fafb, #bae6fd);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-lead {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 40rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-lead strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-panels {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 780px) {
+      .hero-panels {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), #020617);
+      padding: 14px 14px 12px;
+    }
+
+    .panel-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .panel-body {
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .panel-body p + p {
+      margin-top: 8px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .btn-primary {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      background:
+        radial-gradient(circle at 0 0, #38bdf8, #0f172a 55%);
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #020617;
+      box-shadow: 0 10px 26px rgba(56, 189, 248, 0.5);
+      cursor: pointer;
+      transition:
+        transform 0.18s ease-out,
+        box-shadow 0.18s ease-out,
+        background 0.18s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 36px rgba(56, 189, 248, 0.7);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 9px 16px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.18s ease-out, border-color 0.18s, color 0.18s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(209, 213, 219, 0.9);
+      color: #e5e7eb;
+      text-decoration: none;
+    }
+
+    .hero-footnote {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-footnote strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    /* Right column */
+    .side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+        linear-gradient(to bottom right, #020617, #020617);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .card-tag {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    .stats-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .stats-label {
+      color: var(--muted);
+    }
+
+    .stats-value {
+      color: #e5e7eb;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .tag {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--muted);
+    }
+
+    .timeline {
+      font-size: 12px;
+      color: #cbd5f5;
+    }
+
+    .timeline-item + .timeline-item {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(30, 64, 175, 0.6);
+    }
+
+    .timeline-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .timeline-title {
+      font-weight: 500;
+    }
+
+    .timeline-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Lower sections */
+    .sections {
+      max-width: var(--max-width);
+      margin: 28px auto 0;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .sections {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding-top: 18px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .section-body {
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .section-body p + p {
+      margin-top: 8px;
+    }
+
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .use-case {
+      padding: 10px 11px;
+      border-radius: 14px;
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 60%);
+      font-size: 12px;
+    }
+
+    .use-case-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .use-case-title {
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    footer {
+      max-width: var(--max-width);
+      margin: 28px auto 0;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark">CC</div>
+        <div>
+          <div class="brand-text-main">Charles Cantrell Jr</div>
+          <div class="brand-text-sub">Aviation · Cybersecurity · Cloud Engineering</div>
+        </div>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Accepting select consulting and engineering engagements
+      </div>
+    </header>
+
+    <main>
+      <div class="grid">
+        <!-- LEFT: main hero -->
+        <section class="hero">
+          <div class="hero-inner">
+            <div class="eyebrow">
+              <span>Welcome Aboard</span>
+              &nbsp;|&nbsp; Bonanza BE35 V-Tail × Cloud Security
+            </div>
+
+            <h1>
+              <span>Where Aviation Thrill Meets Secure Cloud Engineering</span>
+            </h1>
+
+            <p class="hero-lead">
+              Welcome aboard! Charles Cantrell Jr merges a passion for flight with deep
+              expertise in cybersecurity and cloud engineering. Explore a unique journey
+              where the Bonanza BE35 V-tail inspires both sky-high adventures and
+              cutting-edge technology. Experience the thrill of aviation and innovation
+              through immersive visuals and interactive design. :contentReference[oaicite:0]{index=0}
+            </p>
+
+            <div class="hero-panels">
+              <div class="panel">
+                <div class="panel-title">Flight Deck</div>
+                <div class="panel-body">
+                  <p>
+                    Cockpit time in a Bonanza BE35 V-tail sharpens systems thinking,
+                    risk management, and disciplined checklists — the same mindset used
+                    to design resilient, fault-tolerant platforms.
+                  </p>
+                  <p>
+                    Every takeoff and landing reinforces a simple rule: there is no
+                    “undo” in production. Design accordingly.
+                  </p>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-title">Cloud & Cyber</div>
+                <div class="panel-body">
+                  <p>
+                    Cybersecurity and cloud engineering work stays grounded in reality:
+                    secure architectures, Zero Trust principles, and operationally
+                    viable designs — not just slideware.
+                  </p>
+                  <p>
+                    From regulated workloads to modern app platforms, the focus is on
+                    outcomes: resilience, observability, and controlled blast radius.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-cta-row">
+              <a href="mailto:your.email@example.com" class="btn-primary">
+                <span>Initiate Contact</span>
+                <span>↗</span>
+              </a>
+              <a href="#profile" class="btn-secondary">
+                <span>View Profile & Focus Areas</span>
+              </a>
+            </div>
+
+            <p class="hero-footnote">
+              <strong>Operating philosophy:</strong> Treat every environment like a cockpit:
+              preflight, cross-check, verify, then execute. No drama, just disciplined delivery.
+            </p>
+          </div>
+        </section>
+
+        <!-- RIGHT: profile / stats -->
+        <aside class="side" id="profile">
+          <section class="card">
+            <div class="card-header">
+              <div class="card-title">Profile Snapshot</div>
+              <div class="card-tag">Pilot × Engineer</div>
+            </div>
+            <ul class="stats-list">
+              <li class="stats-row">
+                <span class="stats-label">Core domains</span>
+                <span class="stats-value">Aviation, Cybersecurity, Cloud</span>
+              </li>
+              <li class="stats-row">
+                <span class="stats-label">Aircraft</span>
+                <span class="stats-value">Beech Bonanza BE35 V-tail</span>
+              </li>
+              <li class="stats-row">
+                <span class="stats-label">Engineering focus</span>
+                <span class="stats-value">Secure architectures &amp; platforms</span>
+              </li>
+              <li class="stats-row">
+                <span class="stats-label">Operating style</span>
+                <span class="stats-value">Checklist-driven, outcome-oriented</span>
+              </li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Systems thinking</span>
+              <span class="tag">Zero Trust mindset</span>
+              <span class="tag">Cloud-native</span>
+              <span class="tag">Aviation-inspired UX</span>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div class="card-title">Mission Types</div>
+              <div class="card-tag">High-Value Engagements</div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-label">01 · Architecture</div>
+                <div class="timeline-title">Secure Cloud & Platform Design</div>
+                <div class="timeline-meta">
+                  Align controls, identity, and network with real business risk.
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-label">02 · Implementation</div>
+                <div class="timeline-title">From Blueprint to Production</div>
+                <div class="timeline-meta">
+                  Turn diagrams into hardened, observable, auditable reality.
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-label">03 · Optimization</div>
+                <div class="timeline-title">Refine, Scale, and De-risk</div>
+                <div class="timeline-meta">
+                  Tune reliability and security without killing agility.
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <div class="sections">
+      <section class="section">
+        <div class="section-title">Aviation as a Design Language</div>
+        <div class="section-body">
+          <p>
+            The Bonanza BE35 V-tail isn’t just a beautiful airframe — it’s a systems
+            diagram in motion. Every gauge, checklist, and procedure exists to manage
+            risk in a dynamic environment. That same pattern applies to modern
+            infrastructure and security engineering.
+          </p>
+          <p>
+            Good design assumes turbulence: failures, bad inputs, partial outages, and
+            human error. The goal is not to pretend those won’t happen — it’s to
+            ensure the system stays controllable when they do.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">Where This Shows Up</div>
+        <div class="section-body">
+          <div class="use-cases">
+            <div class="use-case">
+              <div class="use-case-label">Scenario · 01</div>
+              <div class="use-case-title">Critical Cloud Workloads</div>
+              <p>
+                Architecting secure, highly available services that keep running when
+                the air gets bumpy — with guardrails instead of heroics.
+              </p>
+            </div>
+            <div class="use-case">
+              <div class="use-case-label">Scenario · 02</div>
+              <div class="use-case-title">Security by Design</div>
+              <p>
+                Embedding controls, observability, and identity into the design phase,
+                not bolted on after the fact.
+              </p>
+            </div>
+            <div class="use-case">
+              <div class="use-case-label">Scenario · 03</div>
+              <div class="use-case-title">Human-Centric Interfaces</div>
+              <p>
+                Borrowing from cockpit UX: clear signals, minimal clutter, and
+                information prioritized for real-time decisions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="sections">
+      <section class="section">
+        <div class="section-title">How Engagements Work</div>
+        <div class="section-body">
+          <p>
+            <strong>1. Briefing.</strong> Align on mission intent: what needs to fly, what
+            success looks like, and what cannot fail.
+          </p>
+          <p>
+            <strong>2. Design &amp; Plan.</strong> Build a pragmatic architecture and
+            implementation path that respect constraints — budget, compliance, and
+            existing tech debt.
+          </p>
+          <p>
+            <strong>3. Execution.</strong> Implement with the same discipline as a
+            flight plan: controlled changes, clear checkpoints, and continuous
+            verification.
+          </p>
+          <p>
+            <strong>4. Handover.</strong> Leave teams with the equivalent of a POH:
+            clean documentation, procedures, and runbooks they can actually use.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">Ready for the Next Mission</div>
+        <div class="section-body">
+          <p>
+            If you want someone who thinks like a pilot and operates like a
+            principal engineer, reach out. No fluff — just clear thinking,
+            structured execution, and systems built to stay in the air.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div>
+        © <span id="year"></span> Charles Cantrell Jr. All rights reserved.
+      </div>
+      <div>
+        Contact: <a href="mailto:ron@cantrelloffice.cloud">ron@cantrelloffice.cloud</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
